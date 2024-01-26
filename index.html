@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Editor</title>
+    <script src='./app.js'>
+</head>
+<body>
+    <div id="editor-container">
+        <div id="editor-commands" style="display: flex;" >
+            <div id="internal-controls">
+                <div class="selec-holder-container">
+                    <div class="select-holder">
+                        <label>Font:</label>
+                        <select id="fontSelect" onchange="execCommand('fontName', false, this.value)">
+                            <option value="Arial">Arial</option>
+                            <option value="Arial Black">Arial Black</option>
+                            <option value="Baskerville">Baskerville</option>
+                            <option value="Calibri">Calibri</option>
+                            <option value="Comic Sans MS">Comic Sans MS</option>
+                            <option value="Courier New">Courier New</option>
+                            <option value="Garamond">Garamond</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Helvetica">Helvetica</option>
+                            <option value="Impact">Impact</option>
+                            <option value="Lucida Sans Unicode">Lucida Sans Unicode</option>
+                            <option value="'Inconsolata', monospace">Monospace</option>
+                            <option value="Palatino Linotype">Palatino Linotype</option>
+                            <option value="Tahoma">Tahoma</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                            <option value="Trebuchet MS">Trebuchet MS</option>
+                            <option value="Verdana">Verdana</option>
+                        </select>
+                    </div>
+                    <!--  -->
+                    <div class="select-holder">
+                        <label>Text Size:</label>
+                        <select id="fontSizeSelect" onchange="execCommand('fontSize', false, this.value)">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                    </div>
+                    <!--  -->
+                    <div class="select-holder">
+                        <label>Color Text:</label>
+                        <select type="color" id="textColor" onchange="execCommand('ForeColor', false, this.value)">
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="ivory">White</option>
+                            <option value="pink">Pink</option>
+                            <option value="green">Green</option>
+                            <option value="black">Black</option>
+                            <option value="teal">Teal</option>
+                        </select>
+                    </div>
+                    <!--  -->
+                    <div class="select-holder">
+                        <label>Color Background Text:</label>
+                        <select type="color" id="bgColorItem" onchange="execCommand('hiliteColor', false, this.value)">
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="ivory">White</option>
+                            <option value="pink">Pink</option>
+                            <option value="green">Green</option>
+                            <option value="black">Black</option>
+                            <option value="teal">Teal</option>
+                        </select>
+                    </div>
+                    <!--  -->
+                    <div class="select-holder">
+                        <label>Color Background Document:</label>
+                        <select type="color" id="bgColorDocument" onchange="changeEditorBackgroundColor(this.value)">
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="ivory">White</option>
+                            <option value="pink">Pink</option>
+                            <option value="green">Green</option>
+                            <option value="black">Black</option>
+                            <option value="teal">Teal</option>
+                        </select>
+                    </div>
+                    <!--  -->
+                    <div class="select-holder">
+                        <label>Format Block:</label>
+                        <select type="format" id="formatBlock" onchange="execCommand('formatBlock', false, this.value)">
+                            <option value="<blockquote>">Block Quote</option>
+                            <option value="<p>">P</option>
+                            <option value="<h1>">H1</option>
+                            <option value="<h2>">H2</option>
+                            <option value="<h3>">H3</option>
+                            <option value="<h4>">H4</option>
+                            <option value="<h5>">H5</option>
+                            <option value="<h6>">H6</option>
+                            <option value="<pre>">PRE</option>
+                        </select>
+                    </div>
+                </div>
+                <!--  -->
+                <hr>
+                <div class="button-holder-container">
+                    <button onclick="insertLink()">Insert Link</button>
+                    <button onclick="insertImageFromLink()">Insert Image</button>
+                    <button onclick="execCommand('bold')">Bold</button>
+                    <button onclick="execCommand('italic')">Italic</button>
+                    <button onclick="execCommand('underline')">UnderLine</button>
+                    <button onclick="execCommand('insertUnorderedList')">Unordered List</button>
+                    <button onclick="execCommand('insertOrderedList')">Ordered List</button>
+                    <button onclick="execCommand('justifyLeft')">Justify Left</button>
+                    <button onclick="execCommand('justifyCenter')">Justify Center</button>
+                    <button onclick="execCommand('justifyRight')">Justify Right</button>
+                    <button onclick="execCommand('justifyFull')">Justify Full</button>
+                    <button onclick="execCommand('undo')">Undo</button>
+                    <button onclick="execCommand('redo')">Redo</button>
+                    <button onclick="execCommand('removeFormat')">Remove Format</button>
+                    <button onclick="execCommand('insertParagraph')" title="new line">
+                        Insert Paragraph
+                    </button>
+                    <button onclick="insertFakeParagraph()">Fake Paragraph</button>
+                    <button onclick="execCommand('indent')">Ident</button>
+                    <button onclick="execCommand('outdent')">Outident</button>
+                    <button onclick="insertBorder()">Insert Border</button>
+                    <button onclick="insertHTML()">Insert HTML</button>
+                    <hr>
+                </div>
+                <!--  -->
+                <div class="select-holder">
+                    <label>Export HTML as Editable:</label>
+                    <br>
+                    <select type="edit" id="exportEditable">
+                        <option value="false">Not</option>
+                        <option value="true">Yes</option>
+                    </select>
+                </div>
+                <div class="button-holder-container">
+                    <button id="btnReturnHTML" title="Show HTML on console"
+                        onclick="returnHTML(
+                            document.getElementById('editor-content'),
+                            JSON.parse(document.getElementById('exportEditable').value)
+                        )">
+                        CONSOLE HTML
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div id="editor-content" contenteditable="true">
+            <p style="color: #ccc;">✍ Edit me!</p>
+        </div>
+    </div>
+</body>
+</html>
